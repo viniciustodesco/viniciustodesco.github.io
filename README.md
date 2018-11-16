@@ -12,7 +12,7 @@ Alpe API  **Portal Financeiro** desenvolvido em **[Node.js][node]** com banco de
 ## Tech Stack
 
 * [Docker][docker], [Node.js][node], [JavaScript][js], [Babel][babel], [Winston][winston] — core platform and dev tools
-* [Restify][restify],[session][session], etc. — common HTTP-server features
+* [Restify][restify], [session][session], etc. — common HTTP-server features
 * [PostgreSQL][pg], [Oracledb] [oracledb] — Acessos a dados e migrações
 * [Mocha][mocha] - testes
 
@@ -41,7 +41,7 @@ Alpe API  **Portal Financeiro** desenvolvido em **[Node.js][node]** com banco de
 
 * [Node.Js][node] Necessário utilizar a versão `v10.13.0`
 * [Docker][docker] Community Edition v17 ou mair
-* [VS Code][code] editor (preferido), [ESLint][vceslint] plug-ins.
+* [VS Code][code] editor, [ESLint][vceslint] plug-ins.
 * [Postgres][postgres] Banco de dados.
 
 
@@ -97,3 +97,4 @@ Feito com ♥ por ITLAB (http://www.itlab.com.br)
 [docker]: https://www.docker.com/community-edition
 [compose]: https://docs.docker.com/compose/
 [mocha]:https://mochajs.org
+[session]:https://github.com/expressjs/session
