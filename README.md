@@ -1,202 +1,83 @@
 # Node.js Alpe API &nbsp;
 
-Alpe API  **Portal Financeiro** desenvolvido em **[Node.js][node]** banco de dados 
+Alpe API  **Portal Financeiro** desenvolvido em **[Node.js][node]** com banco de dados 
 **[Postgres][postgres]**.
 
-<p align="center"><a href="https://www.postgresql.org"><img src="https://www.postgresql.org/media/img/about/press/elephant.png" height="24" align="top" /></a> <a href="https://nodejs.org/en/"><img src="https://nodejs.org/static/images/logo.svg" height="24" align="top" /></a><sup><a href="https://nodejs.org/static/images/logo.svg">Node.js</a></sup></p>
+<p align="center"><a href="https://www.postgresql.org"><img src="https://www.postgresql.org/media/img/about/press/elephant.png" height="24" align="top" /></a> 
+<sup><a href="https://nodejs.org/static/images/logo.svg">Node.js</a></sup></p>
 
 
 ---
 
-This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support][gitter]).
-
-<p align="center"><a href="https://graphql-demo.kriasoft.com"><img src="http://koistya.github.io/files/nodejs-api-starter-demo.png" width="600" alt="GraphQL Demo" /><br><sup>https://graphql-demo.kriasoft.com</sup></a></p>
-
-
 ## Tech Stack
 
-* [Docker][docker], [Node.js][node], [Yarn][yarn], [JavaScript][js], [Babel][babel], [Flow][flow], [Prettier][prettier] — core platform and dev tools
-* [Express][express], [Passport.js][passport], [session][session], [flash][flash], [cors][cors] etc. — common HTTP-server features
-* [GraphQL.js][gqljs], [GraphQL.js Relay][gqlrelay], [DataLoader][loader], [validator][validator] — [GraphQL][gql] schema and API endpoint
-* [PostgreSQL][pg], [Redis][redis], [Knex][knex], [pg][nodepg] — SQL, document, key/value data store; data acess and migrations
-* [Nodemailer][mailer], [Handlebars][hbs], [Juice][juice] — transactional email and email templates /w layout support
-* [I18next][i18next], [I18next Middleware][i18nextmid], [I18next Backend][i18nextback] — localization and translations
-* [Jest][jest] - unit and snapshot testing
+* [Docker][docker], [Node.js][node], [JavaScript][js], [Babel][babel], [Winston][winston] — core platform and dev tools
+* [Restify][restify],[session][session], etc. — common HTTP-server features
+* [PostgreSQL][pg], [Oracledb] [oracledb] — SQL data acess and migrations
+* [mocha][mocha] - testing
 
 ## Directory Layout
 
 ```bash
 .
-├── /build/                     # The compiled output (via Babel)
-├── /locales/                   # Localization resources (i18n)
-├── /migrations/                # Database schema migrations
-├── /seeds/                     # Scripts with reference/sample data
+├── /postman/                   # Documentação das APIs (POSTMAN)
+├── /scripts/                   # Scripts do banco de dados  seed/migrations
 ├── /src/                       # Node.js application source files
-│   ├── /emails/                # Handlebar templates for sending transactional email
-│   ├── /routes/                # Express routes, e.g. /login/facebook
-│   ├── /schema/                # GraphQL schema type definitions
-│   ├── /utils/                 # Utility functions (mapTo, mapToMany etc.)
-│   ├── /app.js                 # Express.js application
-│   ├── /Context.js             # Data loaders and other context-specific stuff
-│   ├── /db.js                  # Database access and connection pooling (via Knex)
-│   ├── /email.js               # Client utility for sending transactional email
-│   ├── /errors.js              # Custom errors and error reporting
-│   ├── /passport.js            # Passport.js authentication strategies
-│   ├── /redis.js               # Redis client
-│   ├── /server.js              # Node.js server (entry point)
-│   └── /types.js               # Flow type definitions
-├── /tools/                     # Build automation scripts and utilities
+│   ├── /controllers/
+│   ├── /environment/
+│   ├── /model/
+│   ├── /app-dev-seed.js
+│   ├── /app-dev.js
+│   ├── /app.js
+├── /test
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
 ├── docker-compose.override.yml # Overrides per developer environment (not under source control)
 ├── Dockerfile                  # Commands for building a Docker image for production
 ├── package.json                # List of project dependencies
-└── postgres-initdb.sh          # Configuration script for the PostgreSQL Docker container
 ```
 
 
 ## Prerequisites
 
-* [Docker][docker] Community Edition v17 or higher
-* [VS Code][code] editor (preferred) + [Project Snippets][vcsnippets],
-  [EditorConfig][vceditconfig], [ESLint][vceslint], [Flow][vcflow], and [Prettier][vcprettier]
-  plug-ins.
+* [NodeJs][nodejs] Necessário utilizar a versão `v10.13.0`
+* [Docker][docker] Community Edition v17 ou mair
+* [VS Code][code] editor (preferido), [ESLint][vceslint] plug-ins.
+* [Postgres][postgres] Banco de dados.
 
 
 ## Getting Started
 
-Just clone the repo and run `docker-compose up`:
+Verificar se a versão do node está em `v10.13.0`.
+Clonar o repositório e rodar `npm i`
+
+Setup banco de dados
+Necessário utilizar Usuário **postgres** Senha **sa**
+Criar banco com o nome **alpe**
 
 ```bash
-git clone https://github.com/kriasoft/nodejs-api-starter.git example-api
-cd example-api                  # Change current directory to the newly created one
-docker-compose up               # Launch Docker containers with the Node.js API app running inside
+git clone https://github.com/ITLAB-BR/alpe-api.git alpe-api
+cd alpe-api                  # Alterar para o diretório do projeto
+npm i                        # Instalar as dependências
+gulp start-dev               # Rodar o projeto
 ```
-
-The API server must become available at [http://localhost:8080/graphql](http://localhost:8080/graphql)
-([live demo][demo]).
-
-Once the Docker container named `api` is started, the Docker engine executes `node tools/run.js`
-command that installs Node.js dependencies, migrates database schema to the latest version,
-compiles Node.js app from source files (see [`src`](./src)) and launches it with "live reload"
-on port `8080`.
-
-If you need to manually rollback and re-apply the latest database migration file, run the following:
-
-```bash
-yarn docker-db-rollback         # Rollbacks the latest migration
-yarn docker-db-migrate          # Migrates database to the latest version (see /migrates folder)
-yarn docker-db-seed             # Seeds database with test data (see /seeds folder)
-```
-
-In order to open a shell from inside the running "api" container, run:
-
-```bash
-docker-compose exec api /bin/sh
-```
-
-Similarly, if you need to open a PostgreSQL shell ([psql][psql]), execute this command:
-
-```bash
-docker-compose exec db psql <db> -U postgres
-```
-
-For the full list of automation scripts available in this project, please reffer to "scripts"
-section in the [`package.json`](./package.json) file and the [`tools`](./tools) folder.
-
 
 ## Testing
 
-```bash
-yarn lint                       # Find problematic patterns in code
-yarn check                      # Check source code for type errors
-yarn docker-test                # Run unit tests once inside a Docker container
-yarn docker-test-watch          # Run unit tests in watch mode inside a Docker container
-```
-
-For more information visit http://facebook.github.io/jest/
 
 
-## Debugging
+## Projetos Relacionados
 
-In order to run the app with [V8 inspector][v8debug] enabled, simply replace `node tools/run.js`
-with `node --inspect=0.0.0.0:9229 tools/run.js` in either [`docker-compose.yml`](docker-compose.yml)
-file or, even better, in `docker-compose.override.yml`. Then restart the app (`docker-compose up`) and
-[attach your debugger][vsdebug] to `127.0.0.1:9230` (see [`.vscode/launch.json`](./.vscode/launch.json))
-
-
-## Keeping Up-to-Date
-
-If you keep the original Git history after cloning this repo, you can always fetch and merge
-the recent updates back into your project by running:
-
-```bash
-git remote add nodejs-api-starter https://github.com/kriasoft/nodejs-api-starter.git
-git checkout master
-git fetch nodejs-api-starter
-git merge nodejs-api-starter/master
-docker-compose build --no-cache
-docker-compose run --rm --no-deps api yarn
-docker-compose up
-```
-
-*NOTE: Try to merge as soon as the new changes land on the master branch in Node.js API Starter
-repository, otherwise your project may differ too much from the base/upstream repo.*
-
-
-## Deployment
-
-Customize the deployment script found in `tools/publish.js` if needed. Then whenever you need to
-deploy your app to a remote server simply run:
-
-```bash
-node tools/publish <host>       # where <host> is the name of your web server (see ~/.ssh/config)
-```
-
-Not sure where to deploy your app? [DigitalOcean][do] is a great choice in many cases (get [$10 credit][do])
-
-
-## Contributing
-
-Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). Start by checking out the list of
-[open issues](https://github.com/kriasoft/nodejs-api-starter/issues) marked
-[help wanted](https://github.com/kriasoft/nodejs-api-starter/issues?q=label:"help+wanted").
-However, if you decide to get involved, please take a moment to review the [guidelines](CONTRIBUTING.md).
-
-
-## Reference Articles and Tutorials
-
-* [Stop using JWT for sessions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/)
-  ([Part 2](http://cryto.net/~joepie91/blog/2016/06/19/stop-using-jwt-for-sessions-part-2-why-your-solution-doesnt-work/))
-  by [Sven Slootweg](https://github.com/joepie91)
-* [How to Safely Store Your Users' Passwords](https://paragonie.com/blog/2016/02/how-safely-store-password-in-2016)
-  by [P.I.E.](https://paragonie.com/)
-* [How to set up Node.js API Starter on Windows 10](https://medium.com/@daveyedwards/how-to-setup-kriasofts-nodejs-api-starter-on-windows-10-a092d6e34882)
-  ([video](https://youtu.be/IV4IsYyfdKI)) by [Davey Edwards](https://twitter.com/daveyedwards)
-* [How to call C/C++ code from Node.js](https://medium.com/@tarkus/how-to-call-c-c-code-from-node-js-86a773033892)
-  by [Konstantin Tarkus](https://twitter.com/koistya)
-
-
-## Related Projects
-
-* [GraphQL.js](https://github.com/graphql/graphql-js) — The JavaScript reference implementation for [GraphQL](http://graphql.org/)
-* [DataLoader](https://github.com/facebook/dataloader) — Batching and caching for GraphQL data access layer
-* [React Starter Kit](https://github.com/kriasoft/react-starter-kit) — Isomorphic web app boilerplate (React, Node.js, Babel, Webpack, CSS Modules)
-* [React Static Boilerplate](https://github.com/kriasoft/react-static-boilerplate) — Single-page application (SPA) starter kit (React, Redux, Webpack, Firebase)
-* [Membership Database](https://github.com/membership/membership.db) — SQL schema boilerplate for user accounts, profiles, roles, and auth claims
-
-
-## License
-
-Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
-[LICENSE.txt](https://github.com/kriasoft/nodejs-api-starter/blob/master/LICENSE.txt) file.
+* [Front-End](https://github.com/ITLAB-BR/alpe-bko) —  Repositório código-fonte Front-End (www) 
+* [Integração](https://github.com/ITLAB-BR/alpe-api-integracao) — Gateway de integração 
+* [Documentação](https://github.com/ITLAB-BR/alpe) — Documentação/Backlog/Sprints
+* [API](https://github.com/ITLAB-BR/alpe-api) — Repositório código-fonte Back-End (API)
 
 ---
-Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [blog](https://medium.com/@tarkus)) and [contributors](https://github.com/kriasoft/nodejs-api-starter/graphs/contributors)
-
+Feito com ♥ por ITLAB ((http://www.itlab.com.br)
 
 [nodejskit]: https://github.com/kriasoft/nodejs-api-starter
 [rsk]: https://github.com/kriasoft/react-starter-kit
-[rsb]: https://github.com/kriasoft/react-static-boilerplate
+[winston]: https://github.com/winstonjs/winston
 [node]: https://nodejs.org
 [js]: https://developer.mozilla.org/docs/Web/JavaScript
 [babel]: http://babeljs.io/
@@ -207,7 +88,7 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [gqlrelay]: https://github.com/graphql/graphql-relay-js
 [yarn]: https://yarnpkg.com
 [demo]: https://graphql-demo.kriasoft.com/
-[express]: http://expressjs.com/
+[restify]: http://restify.com/
 [session]: https://github.com/expressjs/session
 [flash]: https://github.com/expressjs/flash
 [cors]: https://github.com/expressjs/cors
@@ -221,6 +102,7 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [vceslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
 [vcflow]: https://marketplace.visualstudio.com/items?itemName=flowtype.flow-for-vscode
 [vcprettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+[oracledb]:https://github.com/oracle/node-oracledb
 [docker]: https://www.docker.com/community-edition
 [compose]: https://docs.docker.com/compose/
 [v8debug]: https://chromedevtools.github.io/debugger-protocol-viewer/v8/
@@ -238,3 +120,4 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [i18nextback]: https://github.com/i18next/i18next-node-fs-backend
 [jest]: http://facebook.github.io/jest/
 [gitter]: https://gitter.im/kriasoft/nodejs-api-starter
+[mocha]:https://mochajs.org
