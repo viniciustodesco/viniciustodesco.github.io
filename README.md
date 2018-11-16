@@ -39,7 +39,7 @@ Alpe API  **Portal Financeiro** desenvolvido em **[Node.js][node]** com banco de
 
 ## Prerequisites
 
-* [NodeJs][nodejs] Necessário utilizar a versão `v10.13.0`
+* [Node.Js][node] Necessário utilizar a versão `v10.13.0`
 * [Docker][docker] Community Edition v17 ou mair
 * [VS Code][code] editor (preferido), [ESLint][vceslint] plug-ins.
 * [Postgres][postgres] Banco de dados.
@@ -47,12 +47,14 @@ Alpe API  **Portal Financeiro** desenvolvido em **[Node.js][node]** com banco de
 
 ## Getting Started
 
-Verificar se a versão do node está em `v10.13.0`.
-Clonar o repositório e rodar `npm i`
+* Verificar se a versão do node está em `v10.13.0`.
+* Clonar o repositório e rodar `npm i`
 
-Setup banco de dados
-Necessário utilizar Usuário **postgres** Senha **sa**
-Criar banco com o nome **alpe**
+- Setup banco de dados
+* Necessário utilizar: 
+    * Usuário **postgres** 
+    * Senha **sa**
+* Criar banco com o nome **alpe**
 
 ```bash
 git clone https://github.com/ITLAB-BR/alpe-api.git alpe-api
@@ -73,7 +75,7 @@ gulp start-dev               # Rodar o projeto
 * [API](https://github.com/ITLAB-BR/alpe-api) — Repositório código-fonte Back-End (API)
 
 ---
-Feito com ♥ por ITLAB ((http://www.itlab.com.br)
+Feito com ♥ por ITLAB (http://www.itlab.com.br)
 
 [nodejskit]: https://github.com/kriasoft/nodejs-api-starter
 [rsk]: https://github.com/kriasoft/react-starter-kit
