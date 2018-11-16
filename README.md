@@ -13,8 +13,8 @@ Alpe API  **Portal Financeiro** desenvolvido em **[Node.js][node]** com banco de
 
 * [Docker][docker], [Node.js][node], [JavaScript][js], [Babel][babel], [Winston][winston] — core platform and dev tools
 * [Restify][restify],[session][session], etc. — common HTTP-server features
-* [PostgreSQL][pg], [Oracledb] [oracledb] — SQL data acess and migrations
-* [mocha][mocha] - testing
+* [PostgreSQL][pg], [Oracledb] [oracledb] — Acessos a dados e migrações
+* [Mocha][mocha] - testes
 
 ## Directory Layout
 
@@ -47,14 +47,20 @@ Alpe API  **Portal Financeiro** desenvolvido em **[Node.js][node]** com banco de
 
 ## Getting Started
 
-* Verificar se a versão do node está em `v10.13.0`.
-* Clonar o repositório e rodar `npm i`
-
 - Setup banco de dados
 * Necessário utilizar: 
     * Usuário **postgres** 
     * Senha **sa**
 * Criar banco com o nome **alpe**
+* Rodar o comando na base **alpe**
+
+```
+    create extention unaccent
+```
+
+
+* Verificar se a versão do node está em `v10.13.0`.
+* Clonar o repositório e rodar `npm i`
 
 ```bash
 git clone https://github.com/ITLAB-BR/alpe-api.git alpe-api
