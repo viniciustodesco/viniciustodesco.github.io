@@ -52,7 +52,7 @@ Alpe API  **Portal Financeiro** desenvolvido em **[Node.js][node]** com banco de
     * Usuário **postgres** 
     * Senha **sa**
 * Criar banco com o nome **alpe**
-* Rodar o comando na base **alpe**
+* Rodar o comando na base
 
 ```
     create extention unaccent
